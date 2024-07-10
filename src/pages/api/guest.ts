@@ -12,7 +12,9 @@ export default async function handler(
     console.log("Database connected");
 
     if (req.method === "GET") {
-      const result = await client.query("SELECT * FROM guest");
+      const result = await client.query(
+        "SELECT * FROM guest ORDER BY created_at DESC"
+      );
       const data = result.rows as { id: string; guest: string }[]; // Add explicit type for data
       res.status(200).json(data);
     } else if (req.method === "POST") {
