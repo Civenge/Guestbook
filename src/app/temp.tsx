@@ -53,35 +53,15 @@ const Home = () => {
         ...guests,
         { ...newGuest, created_at: new Date(newGuest.created_at) },
       ]);
-      setNewGuestName("");
-    } catch (e) {
-      console.error("Error adding guest: ", e);
+      setNewGuestName(""); // Clear the input field after submission
+    } catch (error) {
+      console.error("Error adding guest:", error);
     }
   };
 
   return (
-    <main className="flex min-h-fit flex-col items-center justify-between p-24">
-      <div className="py-2 px-4 text-blue-500 rounded-md focus:outline-none  text-center text-4xl font-bold">
-        Welcome to Kyle's Guestbook!
-      </div>
-      <form onSubmit={handleSubmit} className="mt-4 py-2">
-        <input
-          type="text"
-          value={newGuestName}
-          onChange={(e) => setNewGuestName(e.target.value)}
-          className="py-2 px-4 mr-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-          placeholder="Enter your name here to sign the Guest Book."
-          required
-        ></input>
-        <button
-          type="submit"
-          className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        >
-          Add Guest
-        </button>
-      </form>
-
-      <div className="max-w-xl mx-auto h-[50vh] overflow-auto px-8">
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div className="max-w-5xl mx-auto">
         <ul className="divide-y divide-gray-200">
           {guests.map((guest) => (
             <li key={guest.id} className="py-4">
@@ -95,6 +75,24 @@ const Home = () => {
           ))}
         </ul>
       </div>
+
+      {/* Form for adding new guest */}
+      <form onSubmit={handleSubmit} className="mt-8">
+        <input
+          type="text"
+          value={newGuestName}
+          onChange={(e) => setNewGuestName(e.target.value)}
+          className="py-2 px-4 mr-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          placeholder="Enter guest name"
+          required
+        />
+        <button
+          type="submit"
+          className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+        >
+          Add Guest
+        </button>
+      </form>
     </main>
   );
 };
