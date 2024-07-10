@@ -64,13 +64,18 @@ const Home = () => {
       <div className="py-2 px-4 text-blue-500 rounded-md focus:outline-none  text-center text-4xl font-bold">
         Welcome to Kyle&apos;s Guestbook!
       </div>
+      <div>
+        <p className="py-2 px-4 text-20">
+          Please consider signing my guestbook if you are visiting the site!
+        </p>
+      </div>
       <form onSubmit={handleSubmit} className="mt-4 py-2">
         <input
           type="text"
           value={newGuestName}
           onChange={(e) => setNewGuestName(e.target.value)}
           className="py-2 px-4 mr-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-          placeholder="Enter your name here to sign the Guest Book."
+          placeholder="Enter your name here."
           required
         ></input>
         <button
