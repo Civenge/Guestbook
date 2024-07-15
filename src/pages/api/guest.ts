@@ -3,6 +3,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 import pool from "../../utils/postgres";
 import { v4 as uuidv4 } from "uuid";
 
+function sanitizeInput(input: string): string {
+  let sanitizedInput = input.trim();
+
+  sanitizedInput = sanitizedInput.replace(/<\/?[^>]+(>|$)/g, "");
+
+  return sanitizedInput;
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -15,7 +23,7 @@ export default async function handler(
       const result = await client.query(
         "SELECT * FROM guest ORDER BY created_at DESC"
       );
-      const data = result.rows as { id: string; guest: string }[]; // Add explicit type for data
+      const data = result.rows as { id: string; guest: string }[];
       res.status(200).json(data);
     } else if (req.method === "POST") {
       const { guest } = req.body;
@@ -25,10 +33,12 @@ export default async function handler(
         return;
       }
 
+      const sanitzedGuest = sanitizeInput(guest);
+
       const id = uuidv4();
       const result = await client.query(
         "INSERT INTO guest (id, guest, created_at) VALUES ($1, $2, $3) RETURNING *",
-        [id, guest, new Date()]
+        [id, sanitzedGuest, new Date()]
       );
       const newGuest = result.rows[0];
       res.status(201).json(newGuest);
