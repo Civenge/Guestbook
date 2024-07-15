@@ -62,7 +62,7 @@ const Home = () => {
   return (
     <main className="flex min-h-fit flex-col items-center justify-between p-24">
       <div className="py-2 px-4 text-blue-500 rounded-md focus:outline-none  text-center text-4xl font-bold">
-        Welcome to Kyle&apos;s Guestbook!
+        Welcome to Kyle&apos;s Guestbook
       </div>
       <div>
         <p className="py-2 px-4 text-20">
